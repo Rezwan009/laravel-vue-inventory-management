@@ -27,7 +27,11 @@
                       </button>
                     </div>
                   </form>
-                  <div class="text-center"></div>
+                  <div class="text-center">
+                    <router-link to="/" class="font-weight-bold small">
+                      Back to login
+                    </router-link>
+                  </div>
                 </div>
               </div>
             </div>

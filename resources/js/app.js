@@ -3,12 +3,18 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import { routes } from './routes';
+// importing helpers class
+import User from './helpers/User'
 
+window.User = User;
+
+// console.log(User)
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 const router = new VueRouter({
     mode: 'history',
     routes // short for `routes: routes`
 })
+
 
 
 
