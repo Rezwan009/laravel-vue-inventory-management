@@ -6,7 +6,7 @@ class User {
         const access_token = res.data.access_token
         const user_name = res.data.name
 
-        if (Token.access_token(access_token)) {
+        if (Token.isValid(access_token)) {
             AppStorage.store(access_token, user_name)
         }
     }
@@ -24,18 +24,18 @@ class User {
     }
 
     name() {
-        if (this.loggedIn) {
+        if (this.loggedIn()) {
             return localStorage.getItem('user')
         }
     }
     id() {
         if (this.loggedIn()) {
             const payload = Token.payload(localStorage.getItem('token'))
-            return payload.sub
+            return payload.sub()
         }
         return false
     }
 }
 
 
-export default User = new User()
+export default User = new User();

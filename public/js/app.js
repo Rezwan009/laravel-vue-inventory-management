@@ -2535,7 +2535,7 @@ var User = /*#__PURE__*/function () {
       var access_token = res.data.access_token;
       var user_name = res.data.name;
 
-      if (_Token__WEBPACK_IMPORTED_MODULE_0__["default"].access_token(access_token)) {
+      if (_Token__WEBPACK_IMPORTED_MODULE_0__["default"].isValid(access_token)) {
         _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].store(access_token, user_name);
       }
     }
@@ -2558,7 +2558,7 @@ var User = /*#__PURE__*/function () {
   }, {
     key: "name",
     value: function name() {
-      if (this.loggedIn) {
+      if (this.loggedIn()) {
         return localStorage.getItem('user');
       }
     }
@@ -2567,7 +2567,7 @@ var User = /*#__PURE__*/function () {
     value: function id() {
       if (this.loggedIn()) {
         var payload = _Token__WEBPACK_IMPORTED_MODULE_0__["default"].payload(localStorage.getItem('token'));
-        return payload.sub;
+        return payload.sub();
       }
 
       return false;
