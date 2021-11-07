@@ -8,6 +8,25 @@ import User from './helpers/User'
 
 window.User = User;
 
+//importing Sweet alert
+import Swal from 'sweetalert2'
+// const Swal = require('sweetalert2')
+window.Swal = Swal
+
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+});
+
+window.Toast = Toast
 // console.log(User)
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 const router = new VueRouter({

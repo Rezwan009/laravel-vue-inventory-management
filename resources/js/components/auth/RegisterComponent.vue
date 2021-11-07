@@ -10,17 +10,21 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Register</h1>
                   </div>
-                  <form>
+                  <form @submit.prevent="register">
                     <div class="form-group">
-                      <label>First Name</label>
+                      <label>Full Name</label>
                       <input
                         type="text"
                         class="form-control"
                         id="exampleInputFirstName"
-                        placeholder="Enter First Name"
+                        placeholder="Enter Full Name"
+                        v-model="form.name"
                       />
+                      <small class="text-danger" v-if="errors.name">{{
+                        errors.name[0]
+                      }}</small>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label>Last Name</label>
                       <input
                         type="text"
@@ -28,7 +32,7 @@
                         id="exampleInputLastName"
                         placeholder="Enter Last Name"
                       />
-                    </div>
+                    </div> -->
                     <div class="form-group">
                       <label>Email</label>
                       <input
@@ -37,7 +41,11 @@
                         id="exampleInputEmail"
                         aria-describedby="emailHelp"
                         placeholder="Enter Email Address"
+                        v-model="form.email"
                       />
+                      <small class="text-danger" v-if="errors.email">{{
+                        errors.email[0]
+                      }}</small>
                     </div>
                     <div class="form-group">
                       <label>Password</label>
@@ -46,7 +54,11 @@
                         class="form-control"
                         id="exampleInputPassword"
                         placeholder="Password"
+                        v-model="form.password"
                       />
+                      <small class="text-danger" v-if="errors.password">{{
+                        errors.password[0]
+                      }}</small>
                     </div>
                     <div class="form-group">
                       <label>Repeat Password</label>
@@ -55,6 +67,7 @@
                         class="form-control"
                         id="exampleInputPasswordRepeat"
                         placeholder="Repeat Password"
+                        v-model="form.password_confirmation"
                       />
                     </div>
                     <div class="form-group">
@@ -79,5 +92,42 @@
     </div>
   </div>
 </template>
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      form: {
+        name: null,
+        email: null,
+        password: null,
+        password_confirmation: null,
+      },
+      errors: [],
+    };
+  },
+
+  methods: {
+    register() {
+      // alert("done");
+      axios
+        .post("/api/auth/register", this.form)
+        .then((res) => {
+          User.responseAfterLogin(res);
+          Toast.fire({
+            icon: "success",
+            title: "Signed in successfully",
+          });
+          this.$router.push({ name: "home" });
+        })
+        .catch((error) => (this.errors = error.response.data.errors));
+    },
+  },
+
+  created() {
+    if (User.loggedIn()) {
+      this.$router.push({ name: "home" });
+    }
+  },
+};
+</script>
 <style scoped></style>
