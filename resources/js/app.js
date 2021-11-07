@@ -27,8 +27,11 @@ const Toast = Swal.mixin({
 });
 
 window.Toast = Toast
-// console.log(User)
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+// importing Noty as a global 
+import Notification from './helpers/Notification';
+window.Notification = Notification;
+
 const router = new VueRouter({
     mode: 'history',
     routes // short for `routes: routes`

@@ -1,14 +1,24 @@
 <template>
   <div>
+    <div class="d-sm-flex align-items-center justify-content-between">
+      <h1 class="h3 mb-0 text-gray-800">Employee</h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <router-link to="/home">Home</router-link>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Employee</li>
+        <li class="breadcrumb-item" aria-current="page">Create</li>
+      </ol>
+    </div>
     <div class="row justify-content-center">
-      <div class="col-xl-6 col-lg-10 col-md-9s">
-        <div class="card shadow-sm my-5">
+      <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="card shadow-sm my-2">
           <div class="card-body p-0">
             <div class="row">
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Register</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Employee create from</h1>
                   </div>
                   <form @submit.prevent="register">
                     <div class="form-group">
@@ -92,6 +102,8 @@
     </div>
   </div>
 </template>
+
+
 <script>
 export default {
   data() {
@@ -105,29 +117,28 @@ export default {
       errors: [],
     };
   },
-
-  methods: {
-    register() {
-      // alert("done");
-      axios
-        .post("/api/auth/register", this.form)
-        .then((res) => {
-          User.responseAfterLogin(res);
-          Toast.fire({
-            icon: "success",
-            title: "Signed in successfully",
-          });
-          this.$router.push({ name: "home" });
-        })
-        .catch((error) => (this.errors = error.response.data.errors));
-    },
+  register() {
+    // alert("done");
+    axios
+      .post("/api/auth/register", this.form)
+      .then((res) => {
+        User.responseAfterLogin(res);
+        Toast.fire({
+          icon: "success",
+          title: "Signed in successfully",
+        });
+        this.$router.push({ name: "home" });
+      })
+      .catch((error) => (this.errors = error.response.data.errors));
   },
 
   created() {
-    if (User.loggedIn()) {
-      this.$router.push({ name: "home" });
+    if (!User.loggedIn()) {
+      this.$router.push({ name: "login" });
     }
   },
 };
 </script>
-<style scoped></style>
+
+<style scoped>
+</style>
