@@ -1,17 +1,17 @@
 require('./bootstrap');
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
 import { routes } from './routes';
 // importing helpers class
-import User from './helpers/User'
+import User from './helpers/User';
 
 window.User = User;
 
 //importing Sweet alert
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 // const Swal = require('sweetalert2')
-window.Swal = Swal
+window.Swal = Swal;
 
 
 const Toast = Swal.mixin({
@@ -26,7 +26,7 @@ const Toast = Swal.mixin({
     }
 });
 
-window.Toast = Toast
+window.Toast = Toast;
 
 // importing Noty as a global 
 import Notification from './helpers/Notification';

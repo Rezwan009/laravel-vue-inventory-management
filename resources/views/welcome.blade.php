@@ -8,11 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>{{ config('app.name') }}</title>
-
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link href="{{ asset('backend/assets/img/logo/logo.png') }}" rel="icon">
     <link href="{{ asset('backend/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
         type="text/css">
@@ -20,7 +17,6 @@
         type="text/css">
     <link href="{{ asset('backend/assets/css/ruang-admin.min.css') }}" rel="stylesheet">
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
 <body id="page-top">
@@ -369,15 +365,14 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
     <script src="{{ asset('backend/assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/ruang-admin.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"
-        integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    {{-- <script src="{{ asset('backend/assets/vendor/chart.js/Chart.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('backend/assets/js/demo/chart-area-demo.js') }}"></script> --}}
+    <script src="{{ asset('backend/assets/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
     <script>
         var token = localStorage.getItem('token')
 

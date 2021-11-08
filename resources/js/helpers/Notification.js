@@ -40,7 +40,15 @@ class Notification {
             timeout: 1000,
 
         }).show();
+    }
+    image_warning() {
+        new Noty({
+            type: 'warning',
+            layout: "topRight",
+            text: 'Upload less than 1MB file',
+            timeout: 1000,
 
+        }).show();
     }
 
 }

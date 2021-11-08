@@ -7,6 +7,7 @@ const home = require('./components/HomeComponent.vue').default
 
 // employee
 const employeeCreate = require('./components/employee/CreateComponent.vue').default
+const employeeIndex = require('./components/employee/IndexComponent.vue').default
 
 
 export const routes = [
@@ -18,4 +19,5 @@ export const routes = [
 
     //employee starts
     { path: '/employee/create', component: employeeCreate, name: 'employee-create' },
+    { path: '/employees', component: employeeIndex, name: 'employee-index' }
 ]
