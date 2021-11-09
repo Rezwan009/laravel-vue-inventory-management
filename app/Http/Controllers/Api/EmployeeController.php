@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EmployeeValidationRequest;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
@@ -28,19 +29,25 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeValidationRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required',
-            'email' => 'required|string|unique:employees,email',
-            'address' => 'required',
-            'phone' => 'required',
-            'photo' => 'sometimes',
-            'nid' => 'sometimes',
-            'salary' => 'required',
-            'joining_date' => 'required'
-        ]);
-        //continue from here
+
+        $photo  = $request->photo ? Employee::base64Image($request->photo) : null;
+        if ($request->validated()) {
+            $employee = Employee::create([
+                'name'         => $request->name,
+                'email'        => $request->email,
+                'photo'        => $photo,
+                'address'      => $request->address,
+                'phone'        => $request->phone,
+                'nid'          => $request->nid,
+                'salary'       => $request->salary,
+                'joining_date' => $request->joining_date,
+            ]);
+            return response()->json(['employee' => $employee]);
+        } else {
+            return response()->json(['errors' => $request->input()]);
+        }
     }
 
     /**
@@ -51,7 +58,8 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        return response()->json($employee);
     }
 
     /**
@@ -61,9 +69,37 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeValidationRequest $request, $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        // $photo  = $request->newPhoto ? Employee::base64Image($request->newPhoto) : $employee->photo;
+        $data = array();
+        if ($request->validated()) {
+
+            $data['name']         = $request->name;
+            $data['email']        = $request->email;
+            $data['address']      = $request->address;
+            $data['phone']        = $request->phone;
+            $data['nid']          = $request->nid;
+            $data['salary']       = $request->salary;
+            $data['joining_date'] = $request->joining_date;
+            $photo = $request->newPhoto;
+            if ($photo) {
+                $newPhoto = Employee::base64Image($photo);
+                if ($newPhoto) {
+                    $data['photo'] = $newPhoto;
+                    $oldPhoto = $request->photo;
+                    unlink(public_path('backend/assets/img/employee/' . $oldPhoto));
+                    $employee->update($data);
+                }
+                return response()->json(['employee' => $employee]);
+            } else {
+                $data['photo'] = $request->photo;
+                $employee->update($data);
+            }
+        } else {
+            return response()->json(['errors' => $request->input()]);
+        }
     }
 
     /**
@@ -74,6 +110,13 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $photo = $employee->photo;
+        if ($photo) {
+            unlink(public_path('backend/assets/img/employee/' . $photo));
+            $employee->delete();
+        } else {
+            $employee->delete();
+        }
     }
 }
