@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Intervention\Image\Facades\Image;
 
-class Employee extends Model
+class Supplier extends Model
 {
     use HasFactory;
     protected $guarded = [];
@@ -15,7 +15,7 @@ class Employee extends Model
     {
         $ext = $file->extension();
         $newImageName = time() . "." . $ext;
-        $image_path = public_path('/backend/assets/img/employee/');
+        $image_path = public_path('/backend/assets/img/supplier/');
         Self::modify(240, 200, $image_path, $file, $newImageName);
         return $newImageName;
     }
@@ -31,7 +31,7 @@ class Employee extends Model
         $sub = substr($file, 0, $position);
         $ext = explode('/', $sub)[1];
         $newImageName = time() . "." . $ext;
-        $image_path = public_path('backend/assets/img/employee/');
+        $image_path = public_path('backend/assets/img/supplier/');
         Self::modify(240, 200, $image_path, $file, $newImageName);
         return $newImageName;
     }

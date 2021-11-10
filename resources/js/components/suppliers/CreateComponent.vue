@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="d-sm-flex align-items-center justify-content-between">
-      <router-link :to="{ name: 'employee-index' }" class="btn btn-primary">
-        All Employee
+      <router-link :to="{ name: 'supplier-index' }" class="btn btn-primary">
+        All Supplier
       </router-link>
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link to="/home">Home</router-link>
+          <router-link :to="{ name: 'home' }">Home</router-link>
         </li>
         <li class="breadcrumb-item" aria-current="page">
-          <router-link :to="{ name: 'employee-index' }">Employees</router-link>
+          <router-link :to="{ name: 'supplier-index' }">Suppliers</router-link>
         </li>
-        <li class="breadcrumb-item" aria-current="page">Edit</li>
+        <li class="breadcrumb-item" aria-current="page">Create</li>
       </ol>
     </div>
     <div class="row justify-content-center">
@@ -22,10 +22,10 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Employee Edit Form</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Supplier Create Form</h1>
                   </div>
                   <form
-                    @submit.prevent="updateEmployee"
+                    @submit.prevent="storeSupplier"
                     class="user"
                     enctype="multipart/form-data"
                   >
@@ -94,48 +94,16 @@
                     <div class="form-group">
                       <div class="form-row">
                         <div class="col-md-6">
-                          <label>Salary</label>
+                          <label>Shop Name</label>
                           <input
                             type="text"
                             class="form-control"
                             id="exampleInputFirstName"
-                            placeholder="00.00"
-                            v-model="form.salary"
+                            v-model="form.shop_name"
                           />
-                          <small class="text-danger" v-if="errors.salary">{{
-                            errors.salary[0]
+                          <small class="text-danger" v-if="errors.shop_name">{{
+                            errors.shop_name[0]
                           }}</small>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="form-row">
-                        <div class="col-md-6">
-                          <label>NID</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="exampleInputFirstName"
-                            v-model="form.nid"
-                          />
-                          <small class="text-danger" v-if="errors.nid">{{
-                            errors.nid[0]
-                          }}</small>
-                        </div>
-                        <div class="col-md-6">
-                          <label>Joining Date</label>
-                          <input
-                            type="date"
-                            class="form-control"
-                            id="exampleInputEmail"
-                            aria-describedby="emailHelp"
-                            v-model="form.joining_date"
-                          />
-                          <small
-                            class="text-danger"
-                            v-if="errors.joining_date"
-                            >{{ errors.joining_date[0] }}</small
-                          >
                         </div>
                       </div>
                     </div>
@@ -170,7 +138,7 @@
 
                     <div class="form-group mt-4">
                       <button type="submit" class="btn btn-primary btn-block">
-                        Update Employee
+                        Add Supplier
                       </button>
                     </div>
                   </form>
@@ -192,26 +160,22 @@ export default {
   data() {
     return {
       form: {
-        name: "",
-        email: "",
-        photo: "",
-        newPhoto: null,
-        address: "",
-        salary: "",
-        nid: "",
-        phone: "",
-        joining_date: "",
+        name: null,
+        email: null,
+        photo: null,
+        address: null,
+        phone: null,
+        shop_name: null,
       },
       errors: [],
     };
   },
   methods: {
-    updateEmployee() {
-      let id = this.$route.params.id;
+    storeSupplier() {
       axios
-        .patch("/api/employees/" + id, this.form)
+        .post("/api/suppliers", this.form)
         .then(() => {
-          this.$router.push({ name: "employee-index" });
+          this.$router.push({ name: "supplier-index" });
           Notification.success();
         })
         .catch((error) => (this.errors = error.response.data.errors));
@@ -223,8 +187,9 @@ export default {
         Notification.image_warning();
       } else {
         var reader = new FileReader();
+
         reader.onload = (event) => {
-          this.form.newPhoto = event.target.result;
+          this.form.photo = event.target.result;
           console.log(event.target.result);
         };
         reader.readAsDataURL(file);
@@ -235,17 +200,6 @@ export default {
   created() {
     if (!User.loggedIn()) {
       this.$router.push({ name: "login" });
-    }
-    let id = this.$route.params.id;
-    if (id) {
-      axios
-        .get("/api/employees/" + id)
-        .then(({ data }) => {
-          this.form = data;
-        })
-        .catch(() => {
-          console.log("error");
-        });
     }
   },
 };

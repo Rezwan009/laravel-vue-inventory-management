@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,5 @@ Route::group([
 
 Route::apiResources([
     'employees' => EmployeeController::class,
+    'suppliers' => SupplierController::class,
 ]);
