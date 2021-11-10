@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="d-sm-flex align-items-center justify-content-between">
-      <router-link to="/employees" class="btn btn-primary">
+      <router-link :to="{ name: 'employee-index' }" class="btn btn-primary">
         All Employee
       </router-link>
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link to="/home">Home</router-link>
+          <router-link :to="{ name: 'home' }">Home</router-link>
         </li>
         <li class="breadcrumb-item" aria-current="page">
-          <router-link to="/employees">Employees</router-link>
+          <router-link :to="{ name: 'employee-index' }">Employees</router-link>
         </li>
         <li class="breadcrumb-item" aria-current="page">Create</li>
       </ol>

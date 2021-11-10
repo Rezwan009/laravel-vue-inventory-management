@@ -6,19 +6,24 @@ const logout = require('./components/auth/LogoutComponent.vue').default
 const home = require('./components/HomeComponent.vue').default
 
 // employees
-const employeeCreate = require('./components/employees/CreateComponent.vue').default
-const employeeIndex = require('./components/employees/IndexComponent.vue').default
-const employeeEdit = require('./components/employees/EditComponent.vue').default
+const employeeCreate = require('./components/employee/CreateComponent.vue').default
+const employeeIndex = require('./components/employee/IndexComponent.vue').default
+const employeeEdit = require('./components/employee/EditComponent.vue').default
 
 //suppliers
-const supplierCreate = require('./components/suppliers/CreateComponent.vue').default
-const supplierIndex = require('./components/suppliers/IndexComponent.vue').default
-const supplierEdit = require('./components/suppliers/EditComponent.vue').default
+const supplierCreate = require('./components/supplier/CreateComponent.vue').default
+const supplierIndex = require('./components/supplier/IndexComponent.vue').default
+const supplierEdit = require('./components/supplier/EditComponent.vue').default
 
 //categories
-const categoryCreate = require('./components/categories/CreateComponent.vue').default
-const categoryIndex = require('./components/categories/IndexComponent.vue').default
-const categoryEdit = require('./components/categories/EditComponent.vue').default
+const categoryCreate = require('./components/category/CreateComponent.vue').default
+const categoryIndex = require('./components/category/IndexComponent.vue').default
+const categoryEdit = require('./components/category/EditComponent.vue').default
+
+//products
+const productCreate = require('./components/product/CreateComponent.vue').default
+const productIndex = require('./components/product/IndexComponent.vue').default
+const productEdit = require('./components/product/EditComponent.vue').default
 
 export const routes = [
 
@@ -43,6 +48,11 @@ export const routes = [
     { path: '/categories/create', component: categoryCreate, name: 'category-create' },
     { path: '/categories', component: categoryIndex, name: 'category-index' },
     { path: '/categories/edit/:id', component: categoryEdit, name: 'category-edit' },
+
+    //product starts
+    { path: '/products/create', component: productCreate, name: 'product-create' },
+    { path: '/products', component: productIndex, name: 'product-index' },
+    { path: '/products/edit/:id', component: productEdit, name: 'product-edit' },
 
 
 ]
