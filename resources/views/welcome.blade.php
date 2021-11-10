@@ -55,9 +55,9 @@
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Employee</h6>
-                                <router-link to="/employee/create" class="collapse-item">Add
+                                <router-link :to="{name:'employee-create'}" class="collapse-item">Add
                                     employee</router-link>
-                                <router-link to="/employees" class="collapse-item">All employee
+                                <router-link :to="{name:'employee-index'}" class="collapse-item">All employee
                                 </router-link>
                             </div>
                         </div>
@@ -72,11 +72,30 @@
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Suppliers</h6>
-                                <router-link :to="{name:'supplier-create'}" class="collapse-item" href="alerts.html">
+                                <router-link :to="{name:'supplier-create'}" class="collapse-item">
                                     Add supplier
                                 </router-link>
-                                <router-link :to="{name:'supplier-index'}" class="collapse-item" href="buttons.html">
+                                <router-link :to="{name:'supplier-index'}" class="collapse-item">
                                     All supplier
+                                </router-link>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap2"
+                            aria-expanded="true" aria-controls="collapseBootstrap2">
+                            <i class="far fa-fw fa-window-maximize"></i>
+                            <span>Categories</span>
+                        </a>
+                        <div id="collapseBootstrap2" class="collapse" aria-labelledby="headingBootstrap"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Categories</h6>
+                                <router-link :to="{name:'category-create'}" class="collapse-item">
+                                    Add Category
+                                </router-link>
+                                <router-link :to="{name:'category-index'}" class="collapse-item">
+                                    All Categories
                                 </router-link>
                             </div>
                         </div>

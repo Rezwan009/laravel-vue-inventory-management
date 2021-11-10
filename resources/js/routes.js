@@ -1,4 +1,4 @@
-
+//Authentication
 const login = require('./components/auth/LoginComponent.vue').default
 const register = require('./components/auth/RegisterComponent.vue').default
 const forgot = require('./components/auth/ForgotPasswordComponent.vue').default
@@ -15,7 +15,14 @@ const supplierCreate = require('./components/suppliers/CreateComponent.vue').def
 const supplierIndex = require('./components/suppliers/IndexComponent.vue').default
 const supplierEdit = require('./components/suppliers/EditComponent.vue').default
 
+//categories
+const categoryCreate = require('./components/categories/CreateComponent.vue').default
+const categoryIndex = require('./components/categories/IndexComponent.vue').default
+const categoryEdit = require('./components/categories/EditComponent.vue').default
+
 export const routes = [
+
+    // authentication starts
     { path: '/', component: login, name: 'login' },
     { path: '/register', component: register, name: 'register' },
     { path: '/forgot-password', component: forgot, name: 'forgot' },
@@ -31,4 +38,11 @@ export const routes = [
     { path: '/suppliers/create', component: supplierCreate, name: 'supplier-create' },
     { path: '/suppliers', component: supplierIndex, name: 'supplier-index' },
     { path: '/suppliers/edit/:id', component: supplierEdit, name: 'supplier-edit' },
+
+    //category starts
+    { path: '/categories/create', component: categoryCreate, name: 'category-create' },
+    { path: '/categories', component: categoryIndex, name: 'category-index' },
+    { path: '/categories/edit/:id', component: categoryEdit, name: 'category-edit' },
+
+
 ]

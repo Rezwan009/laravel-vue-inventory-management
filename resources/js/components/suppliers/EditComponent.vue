@@ -129,7 +129,7 @@
                         </div>
                         <div>
                           <img
-                            :src="form.photo"
+                            :src="form.newPhoto"
                             alt=""
                             width="40px"
                             height="40px"
