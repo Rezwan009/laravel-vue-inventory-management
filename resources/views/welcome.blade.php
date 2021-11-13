@@ -57,7 +57,7 @@
                                 <h6 class="collapse-header">Employee</h6>
                                 <router-link :to="{name:'employee-create'}" class="collapse-item">Add
                                     employee</router-link>
-                                <router-link :to="{name:'employee-index'}" class="collapse-item">All employee
+                                <router-link :to="{name:'employee-index'}" class="collapse-item">All employees
                                 </router-link>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                                     Add supplier
                                 </router-link>
                                 <router-link :to="{name:'supplier-index'}" class="collapse-item">
-                                    All supplier
+                                    All suppliers
                                 </router-link>
                             </div>
                         </div>
@@ -115,6 +115,25 @@
                                 </router-link>
                                 <router-link :to="{name:'product-index'}" class="collapse-item">
                                     All Products
+                                </router-link>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap4"
+                            aria-expanded="true" aria-controls="collapseBootstrap4">
+                            <i class="far fa-fw fa-window-maximize"></i>
+                            <span>Expense</span>
+                        </a>
+                        <div id="collapseBootstrap4" class="collapse" aria-labelledby="headingBootstrap"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Expense</h6>
+                                <router-link :to="{name:'expense-create'}" class="collapse-item">
+                                    Add Expense
+                                </router-link>
+                                <router-link :to="{name:'expense-index'}" class="collapse-item">
+                                    All Expenses
                                 </router-link>
                             </div>
                         </div>

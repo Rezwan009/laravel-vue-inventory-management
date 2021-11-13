@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="d-sm-flex align-items-center justify-content-between">
-      <router-link :to="{ name: 'product-create' }" class="btn btn-primary">
-        Add Product
+      <router-link :to="{ name: 'expense-create' }" class="btn btn-primary">
+        Add Expense
       </router-link>
 
       <ol class="breadcrumb">
@@ -10,7 +10,7 @@
           <router-link :to="{ name: 'home' }">Home</router-link>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-          <router-link :to="{ name: 'product-index' }">Products</router-link>
+          <router-link :to="{ name: 'expense-index' }">Expenses</router-link>
         </li>
         <li class="breadcrumb-item" aria-current="page">Data</li>
       </ol>
@@ -28,7 +28,7 @@
               justify-content-between
             "
           >
-            <h6 class="m-0 font-weight-bold text-primary">Product list</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Expense list</h6>
             <input
               class="form-control"
               type="text"
@@ -46,50 +46,40 @@
                   <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                       <tr>
-                        <th>Product Name</th>
-                        <th>Photo</th>
-                        <th>Selling Price</th>
-                        <th>Quantity</th>
-                        <th>Product Category</th>
-                        <th>Product Supplier</th>
+                        <th>Id</th>
+                        <th>Expense Details</th>
+                        <th>Amount</th>
+                        <th>Expense Date</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="product in filterSearch" :key="product.id">
+                      <tr v-for="expense in filterSearch" :key="expense.id">
                         <td>
-                          <a href="#">{{ product.name }}</a>
+                          <a href="#">{{ expense.id }}</a>
                         </td>
                         <td>
-                          <img
-                            :src="getProductPhoto() + product.image"
-                            id="photo"
-                            v-show="product.image ? true : false"
-                          />
+                          {{ expense.details }}
                         </td>
-                        <td>{{ product.selling_price }}</td>
-                        <td>{{ product.quantity }}</td>
+                        <td>
+                          {{ expense.amount }}
+                        </td>
                         <td>
                           <span class="badge badge-success">
-                            {{ product.category_name }}
-                          </span>
-                        </td>
-                        <td>
-                          <span class="badge badge-info">
-                            {{ product.supplier_name }}
+                            {{ expense.expense_date }}
                           </span>
                         </td>
                         <td>
                           <router-link
                             :to="{
-                              name: 'product-edit',
-                              params: { id: product.id },
+                              name: 'expense-edit',
+                              params: { id: expense.id },
                             }"
                             class="btn btn-sm btn-primary"
                             >Edit</router-link
                           >
                           <a
-                            @click="deleteRecord(product.id)"
+                            @click="deleteRecord(expense.id)"
                             class="btn btn-sm btn-danger text-white"
                             >Delete</a
                           >
@@ -114,24 +104,22 @@ export default {
     if (!User.loggedIn()) {
       this.$router.push({ name: "login" });
     }
-    this.getProducts();
+    this.getExpenses();
   },
   data() {
     return {
-      products: [],
+      expenses: [],
       searchTerm: "",
     };
   },
   methods: {
-    getProducts() {
+    getExpenses() {
       axios
-        .get("/api/products")
-        .then(({ data }) => (this.products = data))
-        .catch();
+        .get("/api/expenses")
+        .then(({ data }) => (this.expenses = data))
+        .catch((error) => error.response.data);
     },
-    getProductPhoto() {
-      return "backend/assets/img/product/";
-    },
+
     deleteRecord(id) {
       Swal.fire({
         title: "Are you sure?",
@@ -144,10 +132,10 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete("/api/products/" + id)
+            .delete("/api/expenses/" + id)
             .then(() => {
-              this.products = this.products.filter((product) => {
-                return product.id != id;
+              this.expenses = this.expenses.filter((expense) => {
+                return expense.id != id;
               });
             })
             .catch(() => {});
@@ -158,8 +146,8 @@ export default {
   },
   computed: {
     filterSearch() {
-      return this.products.filter((product) => {
-        return product.name.match(this.searchTerm);
+      return this.expenses.filter((expense) => {
+        return expense.amount.match(this.searchTerm);
       });
     },
   },

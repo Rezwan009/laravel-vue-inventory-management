@@ -25,6 +25,11 @@ const productCreate = require('./components/product/CreateComponent.vue').defaul
 const productIndex = require('./components/product/IndexComponent.vue').default
 const productEdit = require('./components/product/EditComponent.vue').default
 
+//expense
+const expenseCreate = require('./components/expense/CreateComponent.vue').default
+const expenseIndex = require('./components/expense/IndexComponent.vue').default
+const expenseEdit = require('./components/expense/EditComponent.vue').default
+
 export const routes = [
 
     // authentication starts
@@ -53,6 +58,11 @@ export const routes = [
     { path: '/products/create', component: productCreate, name: 'product-create' },
     { path: '/products', component: productIndex, name: 'product-index' },
     { path: '/products/edit/:id', component: productEdit, name: 'product-edit' },
+
+    //Expense starts
+    { path: '/expenses/create', component: expenseCreate, name: 'expense-create' },
+    { path: '/expenses', component: expenseIndex, name: 'expense-index' },
+    { path: '/expenses/edit/:id', component: expenseEdit, name: 'expense-edit' },
 
 
 ]
