@@ -19,8 +19,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        // $employees = Employee::all();
-        $employees = Employee::select('name', 'phone', 'photo', 'salary', 'joining_date')->get();
+        $employees = Employee::all();
+        // $employees = Employee::select('name', 'phone', 'photo', 'salary', 'joining_date')->get();
         return response()->json($employees);
     }
 

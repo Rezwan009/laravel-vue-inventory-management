@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\SalaryController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,12 @@ Route::apiResources([
     'products'   => ProductController::class,
     'expenses'   => ExpenseController::class,
 ]);
+//salary 
+Route::post('/salary/paid/{id}', [SalaryController::class, 'paySalary']);
+Route::get('/salaries', [SalaryController::class, 'allSalaries']);
+Route::get('/salary-details/{id}', [SalaryController::class, 'salaryDetails']);
+Route::get('/salaries/{id}', [SalaryController::class, 'salaryEdit']);
+Route::post('/salaries/{id}', [SalaryController::class, 'salaryUpdate']);
+
+//Stock update
+Route::post('/stock/update/{id}', [ProductController::class, 'stockUpdate']);

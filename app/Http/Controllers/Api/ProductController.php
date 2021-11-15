@@ -130,4 +130,11 @@ class ProductController extends Controller
             $product->delete();
         }
     }
+    public function stockUpdate(Request $request, $id)
+    {
+        $data = array();
+
+        $data['quantity'] = $request->quantity;
+        Product::where('id', $id)->update($data);
+    }
 }
