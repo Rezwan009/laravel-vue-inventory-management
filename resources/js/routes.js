@@ -42,6 +42,14 @@ const salaryEdit = require('./components/salary/EditComponent.vue').default
 const productStock = require('./components/product/StockComponent.vue').default
 const editStock = require('./components/product/EditStockComponent.vue').default
 
+// employees
+const customerCreate = require('./components/customer/CreateComponent.vue').default
+const customerIndex = require('./components/customer/IndexComponent.vue').default
+const customerEdit = require('./components/customer/EditComponent.vue').default
+
+// POS
+const pos = require('./components/pos/PosComponent.vue').default
+
 export const routes = [
 
     // authentication starts
@@ -52,7 +60,7 @@ export const routes = [
     { path: '/home', component: home, name: 'home' },
 
     //employee starts
-    { path: '/employee/create', component: employeeCreate, name: 'employee-create' },
+    { path: '/employees/create', component: employeeCreate, name: 'employee-create' },
     { path: '/employees', component: employeeIndex, name: 'employee-index' },
     { path: '/employees/edit/:id', component: employeeEdit, name: 'employee-edit' },
 
@@ -86,6 +94,15 @@ export const routes = [
     //stocks start
     { path: '/product/stocks', component: productStock, name: 'product-stock' },
     { path: '/stocks/edit/:id', component: editStock, name: 'edit-stock' },
+
+
+    //Customer starts
+    { path: '/customers/create', component: customerCreate, name: 'customer-create' },
+    { path: '/customers', component: customerIndex, name: 'customer-index' },
+    { path: '/customers/edit/:id', component: customerEdit, name: 'customer-edit' },
+
+    //POS Starts
+    { path: '/point-of-sales', component: pos, name: 'pos' },
 
 
 ]

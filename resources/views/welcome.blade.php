@@ -32,19 +32,27 @@
                         <div class="sidebar-brand-icon">
                             <img src="{{ asset('backend/assets/img/logo/logo2.png') }}">
                         </div>
-                        <div class="sidebar-brand-text mx-3 cursor-pointer">RuangAdmin</div>
+                        <div class="sidebar-brand-text mx-3 cursor-pointer">Easy Inventory</div>
                     </router-link>
                     <hr class="sidebar-divider my-0">
+
                     <li class="nav-item active">
                         <router-link class="nav-link cursor-pointer" to="/home">
                             <i class="fas fa-fw fa-tachometer-alt"></i>
                             <span>Dashboard</span>
                         </router-link>
                     </li>
+
                     <hr class="sidebar-divider">
                     <div class="sidebar-heading">
                         Features
                     </div>
+                    <li class="nav-item bg-light">
+                        <router-link class="nav-link cursor-pointer" :to="{name:'pos'}">
+                            <i class="fas fa-fw fa-crosshairs text-info"></i>
+                            <span class="text-info font-weight-bold">POS</span>
+                        </router-link>
+                    </li>
                     <li class="nav-item">
                         <router-link to="/home" class="nav-link collapsed" data-toggle="collapse"
                             data-target="#collapseBootstrap" aria-expanded="true" aria-controls="collapseBootstrap">
@@ -77,6 +85,25 @@
                                 </router-link>
                                 <router-link :to="{name:'supplier-index'}" class="collapse-item">
                                     All suppliers
+                                </router-link>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap6"
+                            aria-expanded="true" aria-controls="collapseBootstrap6">
+                            <i class="far fa-fw fa-window-maximize"></i>
+                            <span>Customers</span>
+                        </a>
+                        <div id="collapseBootstrap6" class="collapse" aria-labelledby="headingBootstrap"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Customers</h6>
+                                <router-link :to="{name:'customer-create'}" class="collapse-item">
+                                    Add Customer
+                                </router-link>
+                                <router-link :to="{name:'customer-index'}" class="collapse-item">
+                                    All Customers
                                 </router-link>
                             </div>
                         </div>
@@ -167,14 +194,14 @@
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable"
                             aria-expanded="true" aria-controls="collapseTable">
                             <i class="fas fa-fw fa-table"></i>
-                            <span>Tables</span>
+                            <span>Reports</span>
                         </a>
                         <div id="collapseTable" class="collapse" aria-labelledby="headingTable"
                             data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Tables</h6>
-                                <a class="collapse-item" href="simple-tables.html">Simple Tables</a>
-                                <a class="collapse-item" href="datatables.html">DataTables</a>
+                                <h6 class="collapse-header">Reports</h6>
+                                <a class="collapse-item" href="simple-tables.html">Report One</a>
+                                <a class="collapse-item" href="datatables.html">Report Two</a>
                             </div>
                         </div>
                     </li>
@@ -450,8 +477,14 @@
     <script src="{{ asset('backend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/ruang-admin.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/vendor/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/demo/chart-area-demo.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"
+        integrity="sha512-OD9Gn6cAUQezuljS6411uRFr84pkrCtw23Hl5TYzmGyD0YcunJIPSBDzrV8EeCiFxGWWvtJOfVo5pOgB++Jsag=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+        integrity="sha512-mf78KukU/a8rjr7aBRvCa2Vwg/q0tUjJhLtcK53PHEbFwCEqQ5durlzvVTgQgKpv+fyNMT6ZQT1Aq6tpNqf1mg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+    {{-- <script src="{{ asset('backend/assets/vendor/chart.js/Chart.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/assets/js/demo/chart-area-demo.js') }}"></script> --}}
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script>
         var token = localStorage.getItem('token')

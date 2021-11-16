@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="d-sm-flex align-items-center justify-content-between">
-      <router-link :to="{ name: 'product-create' }" class="btn btn-primary">
-        Add Product
+      <router-link :to="{ name: 'customer-create' }" class="btn btn-primary">
+        Add Customer
       </router-link>
 
       <ol class="breadcrumb">
@@ -10,7 +10,7 @@
           <router-link :to="{ name: 'home' }">Home</router-link>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-          <router-link :to="{ name: 'product-index' }">Products</router-link>
+          <router-link :to="{ name: 'customer-index' }">Customers</router-link>
         </li>
         <li class="breadcrumb-item" aria-current="page">Data</li>
       </ol>
@@ -28,7 +28,7 @@
               justify-content-between
             "
           >
-            <h6 class="m-0 font-weight-bold text-primary">Product Stock</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Customer list</h6>
             <input
               class="form-control"
               type="text"
@@ -46,53 +46,41 @@
                   <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                       <tr>
-                        <th>Name</th>
+                        <th>Full name</th>
                         <th>Photo</th>
-                        <th>Product Category</th>
-                        <th>Buy Price</th>
-                        <th>Sale Price</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
+                        <th>Email</th>
+                        <th>Phone</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="product in filterSearch" :key="product.id">
+                      <tr v-for="customer in filterSearch" :key="customer.id">
                         <td>
-                          <router-link :to="{ name: 'product-index' }">{{
-                            product.name
-                          }}</router-link>
+                          <a href="#">{{ customer.name }}</a>
                         </td>
                         <td>
                           <img
-                            :src="getProductPhoto() + product.image"
+                            :src="getCustomerPhoto() + customer.photo"
                             id="photo"
-                            v-show="product.image ? true : false"
+                            v-show="customer.photo ? true : false"
                           />
                         </td>
-                        <td>
-                          {{ product.category_name }}
-                        </td>
-                        <td>
-                          {{ product.buying_price }}
-                        </td>
-                        <td>{{ product.selling_price }}</td>
-                        <td>{{ product.quantity }}</td>
-                        <td v-if="product.quantity >= 1">
-                          <span class="badge badge-info"> Available </span>
-                        </td>
-                        <td v-else>
-                          <span class="badge badge-danger"> Stock Out </span>
-                        </td>
+                        <td>{{ customer.email }}</td>
+                        <td>{{ customer.phone }}</td>
 
                         <td>
                           <router-link
                             :to="{
-                              name: 'edit-stock',
-                              params: { id: product.id },
+                              name: 'customer-edit',
+                              params: { id: customer.id },
                             }"
                             class="btn btn-sm btn-primary"
                             >Edit</router-link
+                          >
+                          <a
+                            @click="deleteRecord(customer.id)"
+                            class="btn btn-sm btn-danger text-white"
+                            >Delete</a
                           >
                         </td>
                       </tr>
@@ -115,29 +103,52 @@ export default {
     if (!User.loggedIn()) {
       this.$router.push({ name: "login" });
     }
-    this.getProducts();
+    this.getCustomer();
   },
   data() {
     return {
-      products: [],
+      customers: [],
       searchTerm: "",
     };
   },
   methods: {
-    getProducts() {
+    getCustomer() {
       axios
-        .get("/api/products")
-        .then(({ data }) => (this.products = data))
+        .get("/api/customers")
+        .then(({ data }) => (this.customers = data))
         .catch();
     },
-    getProductPhoto() {
-      return "/backend/assets/img/product/";
+    getCustomerPhoto() {
+      return "backend/assets/img/customer/";
+    },
+    deleteRecord(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .delete("/api/customers/" + id)
+            .then(() => {
+              this.customers = this.customers.filter((customer) => {
+                return customer.id != id;
+              });
+            })
+            .catch(() => {});
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     },
   },
   computed: {
     filterSearch() {
-      return this.products.filter((product) => {
-        return product.name.match(this.searchTerm);
+      return this.customers.filter((customer) => {
+        return customer.name.match(this.searchTerm);
       });
     },
   },
