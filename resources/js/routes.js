@@ -50,6 +50,11 @@ const customerEdit = require('./components/customer/EditComponent.vue').default
 // POS
 const pos = require('./components/pos/PosComponent.vue').default
 
+// Orders
+const todaysOrder = require('./components/order/TodaysOrderComponent.vue').default
+const viewOrder = require('./components/order/ViewOrderComponent.vue').default
+const searchOrder = require('./components/order/SearchOrderComponent.vue').default
+
 export const routes = [
 
     // authentication starts
@@ -103,6 +108,12 @@ export const routes = [
 
     //POS Starts
     { path: '/point-of-sales', component: pos, name: 'pos' },
+
+    //Todays Order
+    { path: '/today-orders', component: todaysOrder, name: 'today-order' },
+    { path: '/view-order/:id', component: viewOrder, name: 'view-order' },
+    { path: '/search-order', component: searchOrder, name: 'search-order' },
+
 
 
 ]

@@ -25,6 +25,11 @@ class ProductController extends Controller
             ->get();
         return response()->json($products);
     }
+    public function stockOutProducts()
+    {
+        $products = DB::table('products')->where('quantity', '<', 1)->get();
+        return response()->json($products);
+    }
 
     /**
      * Store a newly created resource in storage.

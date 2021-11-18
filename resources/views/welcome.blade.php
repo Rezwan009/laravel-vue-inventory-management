@@ -185,6 +185,25 @@
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap7"
+                            aria-expanded="true" aria-controls="collapseBootstrap7">
+                            <i class="far fa-fw fa-window-maximize"></i>
+                            <span>Orders</span>
+                        </a>
+                        <div id="collapseBootstrap7" class="collapse" aria-labelledby="headingBootstrap"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Orders</h6>
+                                <router-link :to="{name:'today-order'}" class="collapse-item">
+                                    Today's Order
+                                </router-link>
+                                <router-link :to="{name:'search-order'}" class=" collapse-item">
+                                    Search Order
+                                </router-link>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
                         <router-link class="nav-link" :to="{ name:'product-stock'}">
                             <i class="fab fa-fw fa-wpforms"></i>
                             <span>Stocks</span>

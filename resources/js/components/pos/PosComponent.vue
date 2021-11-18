@@ -274,6 +274,9 @@
                         <h6 class="card-text text-center">
                           {{ product.name }}
                         </h6>
+                        <h6 class="card-text text-center">
+                          <strong> $ {{ product.selling_price }}</strong>
+                        </h6>
                         <div class="text-center pb-1">
                           <span
                             class="badge badge-info"
@@ -333,6 +336,9 @@
                       <div class="card-body">
                         <h6 class="card-text text-center">
                           {{ catProduct.name }}
+                        </h6>
+                        <h6 class="card-text text-center">
+                          <strong> $ {{ catProduct.selling_price }}</strong>
                         </h6>
                         <div class="text-center pb-1">
                           <span

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\ExtraController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PosController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SalaryController;
@@ -60,3 +61,15 @@ Route::get('/vats', [ExtraController::class, 'vat']);
 
 //create order
 Route::post('/create-order', [PosController::class, 'createOrder']);
+//TOdays order
+Route::get('/today-orders', [OrderController::class, 'todaysOrder']);
+Route::get('/order/details/{id}', [OrderController::class, 'orderDetails']);
+Route::get('/order/order-details/{id}', [OrderController::class, 'allOrderDetails']);
+Route::post('/search-orders', [OrderController::class, 'searchOrder']);
+
+
+Route::get('/today-income', [OrderController::class, 'todayIncome']);
+Route::get('/today-sell', [OrderController::class, 'todaySell']);
+Route::get('/today-due', [OrderController::class, 'todayDue']);
+Route::get('/today-expense', [OrderController::class, 'todayExpense']);
+Route::get('/stock-out/products', [ProductController::class, 'stockOutProducts']);
