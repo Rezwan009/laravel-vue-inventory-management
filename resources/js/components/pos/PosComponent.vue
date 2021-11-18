@@ -261,6 +261,7 @@
                     class="col-lg-4 col-md-4 col-sm-6 col-6 mb-2"
                     v-for="product in filterSearch"
                     :key="product.id"
+                    v-show="product.quantity != 0"
                   >
                     <div class="card product-card">
                       <img
@@ -320,6 +321,7 @@
                     class="col-lg-4 col-md-4 col-sm-6 col-6 mb-2"
                     v-for="catProduct in catProductFilterSearch"
                     :key="catProduct.id"
+                    v-show="catProduct.quantity != 0"
                   >
                     <div class="card product-card">
                       <img

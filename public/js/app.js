@@ -5427,6 +5427,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
     var _this = this;
@@ -59208,6 +59210,14 @@ var render = function () {
                         return _c(
                           "div",
                           {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: product.quantity != 0,
+                                expression: "product.quantity != 0",
+                              },
+                            ],
                             key: product.id,
                             staticClass:
                               "col-lg-4 col-md-4 col-sm-6 col-6 mb-2",
@@ -59339,6 +59349,14 @@ var render = function () {
                         return _c(
                           "div",
                           {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: catProduct.quantity != 0,
+                                expression: "catProduct.quantity != 0",
+                              },
+                            ],
                             key: catProduct.id,
                             staticClass:
                               "col-lg-4 col-md-4 col-sm-6 col-6 mb-2",
