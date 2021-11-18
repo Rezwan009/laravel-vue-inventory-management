@@ -9,6 +9,24 @@ class Notification {
 
         }).show();
     }
+    cart_success() {
+        new Noty({
+            type: 'success',
+            layout: "topRight",
+            text: 'Product added to cart successfully..',
+            timeout: 1000,
+
+        }).show();
+    }
+    cart_delete() {
+        new Noty({
+            type: 'success',
+            layout: "topRight",
+            text: 'Product removed from cart successfully..',
+            timeout: 1000,
+
+        }).show();
+    }
 
 
     error() {

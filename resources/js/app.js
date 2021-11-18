@@ -31,6 +31,7 @@ window.Toast = Toast;
 // importing Noty as a global 
 import Notification from './helpers/Notification';
 window.Notification = Notification;
+window.bus = new Vue();
 
 const router = new VueRouter({
     mode: 'history',

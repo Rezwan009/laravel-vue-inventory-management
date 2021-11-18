@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\ExpenseController;
+use App\Http\Controllers\Api\ExtraController;
 use App\Http\Controllers\Api\PosController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SalaryController;
@@ -46,3 +48,15 @@ Route::post('/stock/update/{id}', [ProductController::class, 'stockUpdate']);
 
 //Category wise product getting
 Route::get('/category-wise/products/{id}', [PosController::class, 'categoryWiseProducts']);
+Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart']);
+Route::get('/all-cart-products', [CartController::class, 'allCartProducts']);
+Route::get('/delete-cart/{id}', [CartController::class, 'removeCartItem']);
+Route::get('/cart-increment/{id}', [CartController::class, 'incrementCartItem']);
+Route::get('/cart-decrement/{id}', [CartController::class, 'decrementCartItem']);
+
+
+// vat 
+Route::get('/vats', [ExtraController::class, 'vat']);
+
+//create order
+Route::post('/create-order', [PosController::class, 'createOrder']);

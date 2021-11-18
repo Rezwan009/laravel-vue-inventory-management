@@ -39,26 +39,47 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><a href="#">Name</a></td>
-                  <td>Qty</td>
-                  <td>Unit</td>
-                  <td><span class="badge badge-success">Total</span></td>
-                  <td><a href="#" class="btn btn-sm btn-primary">X</a></td>
-                </tr>
-                <tr>
-                  <td><a href="#">Name</a></td>
-                  <td>Qty</td>
-                  <td>Unit</td>
-                  <td><span class="badge badge-success">Total</span></td>
-                  <td><a href="#" class="btn btn-sm btn-primary">X</a></td>
-                </tr>
-                <tr>
-                  <td><a href="#">Name</a></td>
-                  <td>Qty</td>
-                  <td>Unit</td>
-                  <td><span class="badge badge-success">Total</span></td>
-                  <td><a href="#" class="btn btn-sm btn-primary">X</a></td>
+                <tr v-for="cart in carts" :key="cart.id">
+                  <td>
+                    <a href="#">{{ cart.product_name }}</a>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      readonly
+                      :value="cart.product_qty"
+                      style="width: 25px; height: 30px; margin-right: 2px"
+                      class="text-center"
+                    />
+                    <button
+                      class="btn btn-sm btn-success"
+                      @click.prevent="increment(cart.id)"
+                    >
+                      +
+                    </button>
+                    <button
+                      class="btn btn-sm btn-warning"
+                      @click.prevent="decrement(cart.id)"
+                      v-if="cart.product_qty >= 2"
+                    >
+                      -
+                    </button>
+                    <button class="btn btn-sm btn-danger" v-else disabled>
+                      -
+                    </button>
+                  </td>
+                  <td>{{ cart.product_price }}</td>
+                  <td>
+                    {{ cart.sub_total }}
+                  </td>
+                  <td>
+                    <button
+                      @click.prevent="removeCartItem(cart.id)"
+                      class="btn btn-sm btn-primary"
+                    >
+                      X
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -75,7 +96,7 @@
                 "
               >
                 Total Quantity:
-                <strong>56</strong>
+                <strong>{{ totalQuantity }}</strong>
               </li>
               <li
                 class="
@@ -86,7 +107,7 @@
                 "
               >
                 Subtotal:
-                <strong>562 $</strong>
+                <strong>{{ subTotal }} $</strong>
               </li>
               <li
                 class="
@@ -97,7 +118,7 @@
                 "
               >
                 Vat:
-                <strong>5 %</strong>
+                <strong>{{ vats.vat }} %</strong>
               </li>
               <li
                 class="
@@ -108,13 +129,13 @@
                 "
               >
                 Total :
-                <strong>563 $</strong>
+                <strong>{{ (subTotal * vats.vat) / 100 + subTotal }} $</strong>
               </li>
             </ul>
             <!-- list group End  -->
             <!-- Form start -->
 
-            <form action="" class="mt-2">
+            <form @submit.prevent="createOrder" class="mt-2">
               <div class="form-group">
                 <label for="customer_id">Customer</label>
                 <select
@@ -122,8 +143,13 @@
                   class="form-control form-control-sm"
                   required
                 >
-                  <option value="">Customer 1</option>
-                  <option value="">Customer 2</option>
+                  <option
+                    :value="customer.id"
+                    v-for="customer in customers"
+                    :key="customer.id"
+                  >
+                    {{ customer.name }}
+                  </option>
                 </select>
               </div>
               <div class="form-group">
@@ -209,7 +235,7 @@
                 role="tab"
                 aria-controls="profile"
                 aria-selected="false"
-                @click="categoryWiseProducts(category.id)"
+                @click.prevent="categoryWiseProducts(category.id)"
                 >{{ category.name }}</a
               >
             </li>
@@ -260,7 +286,11 @@
                         </div>
 
                         <div class="text-center pt-1">
-                          <button type="button" class="btn btn-primary btn-sm">
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-sm"
+                            @click.prevent="addToCart(product.id)"
+                          >
                             Add to Cart
                           </button>
                         </div>
@@ -315,7 +345,11 @@
                         </div>
 
                         <div class="text-center pt-1">
-                          <button type="button" class="btn btn-sm btn-primary">
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-primary"
+                            @click.prevent="addToCart(catProduct.id)"
+                          >
                             Add to Cart
                           </button>
                         </div>
@@ -341,13 +375,26 @@ export default {
     }
     this.getProducts();
     this.getCategories();
+    this.getCustomers();
+    this.getAllCartProducts();
+    this.getVat();
+    bus.$on("afterAdd", () => {
+      this.getAllCartProducts();
+    });
   },
   data() {
     return {
       products: [],
       categories: [],
+      customers: [],
       catProducts: [],
       searchTerm: "",
+      customer_id: "",
+      paid_amount: "",
+      due_amount: "",
+      payment_method: "",
+      carts: [],
+      vats: "",
     };
   },
   methods: {
@@ -357,10 +404,24 @@ export default {
         .then(({ data }) => (this.products = data))
         .catch();
     },
+    getAllCartProducts() {
+      axios
+        .get("/api/all-cart-products")
+        .then(({ data }) => {
+          this.carts = data;
+        })
+        .catch();
+    },
     getCategories() {
       axios
-        .get("/api/categories/")
+        .get("/api/categories")
         .then(({ data }) => (this.categories = data))
+        .catch();
+    },
+    getCustomers() {
+      axios
+        .get("/api/customers")
+        .then(({ data }) => (this.customers = data))
         .catch();
     },
     categoryWiseProducts(id) {
@@ -372,6 +433,69 @@ export default {
     getProductPhoto() {
       return "/backend/assets/img/product/";
     },
+    getVat() {
+      axios
+        .get("/api/vats")
+        .then(({ data }) => (this.vats = data))
+        .catch();
+    },
+    addToCart(id) {
+      // alert(id);
+      axios
+        .get("/api/add-to-cart/" + id)
+        .then(() => {
+          Notification.cart_success();
+          bus.$emit("afterAdd");
+        })
+        .catch();
+    },
+    removeCartItem(id) {
+      axios
+        .get("/api/delete-cart/" + id)
+        .then(() => {
+          Notification.cart_delete();
+          bus.$emit("afterAdd");
+        })
+        .catch();
+    },
+    increment(id) {
+      axios
+        .get("/api/cart-increment/" + id)
+        .then(() => {
+          Notification.success();
+          bus.$emit("afterAdd");
+        })
+        .catch();
+    },
+    decrement(id) {
+      axios
+        .get("/api/cart-decrement/" + id)
+        .then(() => {
+          Notification.success();
+          bus.$emit("afterAdd");
+        })
+        .catch();
+    },
+    createOrder() {
+      let total = (this.subTotal * this.vats.vat) / 100 + this.subTotal;
+      var data = {
+        customer_id: this.customer_id,
+        payment_method: this.payment_method,
+        paid_amount: this.paid_amount,
+        due_amount: this.due_amount,
+        total: total,
+        vat: this.vats.vat,
+        subTotal: this.subTotal,
+        quantity: this.totalQuantity,
+      };
+      axios
+        .post("/api/create-order", data)
+        .then(() => {
+          Notification.success();
+          this.$router.push({ name: "home" });
+        })
+        .catch();
+    },
   },
   computed: {
     filterSearch() {
@@ -379,6 +503,23 @@ export default {
         return product.name.match(this.searchTerm);
       });
     },
+    totalQuantity() {
+      var sum = 0;
+      for (let i = 0; i < this.carts.length; i++) {
+        sum += parseFloat(this.carts[i].product_qty);
+      }
+      return sum;
+    },
+    subTotal() {
+      var sum = 0;
+      for (let i = 0; i < this.carts.length; i++) {
+        sum +=
+          parseFloat(this.carts[i].product_qty) *
+          parseFloat(this.carts[i].product_price);
+      }
+      return sum;
+    },
+
     catProductFilterSearch() {
       return this.catProducts.filter((product) => {
         return product.name.match(this.searchTerm);
@@ -389,6 +530,11 @@ export default {
 </script>
 
 <style scoped>
+.card .table td,
+th {
+  padding-left: -1 !important;
+  padding-right: 0 !important;
+}
 #photo {
   width: 130;
   height: 100px;
