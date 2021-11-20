@@ -58179,7 +58179,10 @@ var render = function () {
       [
         _c(
           "router-link",
-          { staticClass: "btn btn-primary", attrs: { to: "/employee/create" } },
+          {
+            staticClass: "btn btn-primary",
+            attrs: { to: "/employees/create" },
+          },
           [_vm._v("\n      Add Employee\n    ")]
         ),
         _vm._v(" "),

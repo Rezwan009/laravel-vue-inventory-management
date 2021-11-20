@@ -224,39 +224,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="ui-colors.html">
-                            <i class="fas fa-fw fa-palette"></i>
-                            <span>UI Colors</span>
-                        </a>
-                    </li>
-                    <hr class="sidebar-divider">
-                    <div class="sidebar-heading">
-                        Examples
-                    </div>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
-                            aria-expanded="true" aria-controls="collapsePage">
-                            <i class="fas fa-fw fa-columns"></i>
-                            <span>Pages</span>
-                        </a>
-                        <div id="collapsePage" class="collapse" aria-labelledby="headingPage"
-                            data-parent="#accordionSidebar">
-                            <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Example Pages</h6>
-                                <a class="collapse-item" href="login.html">Login</a>
-                                <a class="collapse-item" href="register.html">Register</a>
-                                <a class="collapse-item" href="404.html">404 Page</a>
-                                <a class="collapse-item" href="blank.html">Blank Page</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="charts.html">
-                            <i class="fas fa-fw fa-chart-area"></i>
-                            <span>Charts</span>
-                        </a>
-                    </li>
+
                     <hr class="sidebar-divider">
                     <div class="version" id="version-ruangadmin"></div>
                 </ul>
@@ -443,9 +411,9 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img class="img-profile rounded-circle"
                                         src="{{ asset('backend/assets/img/boy.png') }}" style="max-width: 60px">
-                                    <router-link to="/logout"> <span
+                                    {{-- <router-link to="/logout"> <span
                                             class="ml-2 d-none d-lg-inline text-white small">LogOut</span>
-                                    </router-link>
+                                    </router-link> --}}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
@@ -462,10 +430,11 @@
                                         Activity Log
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="login.html">
+                                    <router-link class="dropdown-item" to="/logout">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
-                                    </a>
+                                    </router-link>
+
                                 </div>
                             </li>
                         </ul>
@@ -493,17 +462,12 @@
     </a>
 
     <script src="{{ asset('backend/assets/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    {{-- <script src="{{ asset('backend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
     <script src="{{ asset('backend/assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/ruang-admin.min.js') }}"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"
-        integrity="sha512-OD9Gn6cAUQezuljS6411uRFr84pkrCtw23Hl5TYzmGyD0YcunJIPSBDzrV8EeCiFxGWWvtJOfVo5pOgB++Jsag=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-        integrity="sha512-mf78KukU/a8rjr7aBRvCa2Vwg/q0tUjJhLtcK53PHEbFwCEqQ5durlzvVTgQgKpv+fyNMT6ZQT1Aq6tpNqf1mg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-    {{-- <script src="{{ asset('backend/assets/vendor/chart.js/Chart.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('backend/assets/js/demo/chart-area-demo.js') }}"></script> --}}
+
+    <script src="{{ asset('backend/assets/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script>
         var token = localStorage.getItem('token')

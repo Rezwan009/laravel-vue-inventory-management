@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-sm-flex align-items-center justify-content-between">
-      <router-link to="/employee/create" class="btn btn-primary">
+      <router-link to="/employees/create" class="btn btn-primary">
         Add Employee
       </router-link>
 
